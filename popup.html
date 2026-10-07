@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>Gesture Control</title>
+  <link rel="stylesheet" href="ui.css">
+  <style>
+    body { width: 300px; background: var(--surface); }
+    .head { display: flex; align-items: center; gap: 10px; padding: 14px 16px 12px; border-bottom: 1px solid var(--line); }
+    .head img { border-radius: 8px; }
+    .head strong { font-size: 15px; }
+    .head .switch { margin-left: auto; }
+    .body { padding: 6px 16px 14px; }
+    .site { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
+    .site-info { min-width: 0; flex: 1; }
+    .site-info b { display: block; font-weight: 600; }
+    .host { display: block; color: var(--muted); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .note { margin: 2px 0 10px; padding: 9px 11px; border-radius: 10px; background: var(--surface-2); color: var(--muted); font-size: 12.5px; }
+    .cheat { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; margin: 6px 0 14px; font-size: 12.5px; }
+    .cheat div { display: flex; align-items: center; gap: 6px; min-width: 0; }
+    .cheat .arrows i { width: 20px; height: 20px; border-radius: 6px; font-size: 12px; }
+    .cheat span.l { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+    .btn { width: 100%; }
+    body.off .body .site, body.off .cheat { opacity: .45; }
+  </style>
+</head>
+<body>
+  <div class="head">
+    <img src="icons/icon32.png" alt="" width="28" height="28">
+    <strong>Gesture Control</strong>
+    <span class="switch" title="전체 켜기/끄기"><input type="checkbox" id="enabled" aria-label="제스처 전체 사용"><span></span></span>
+  </div>
+  <div class="body">
+    <div class="site" id="siteRow">
+      <div class="site-info">
+        <b>이 사이트에서 사용</b>
+        <span class="host" id="host"></span>
+      </div>
+      <span class="switch"><input type="checkbox" id="siteEnabled" aria-label="이 사이트에서 사용"><span></span></span>
+    </div>
+    <p class="note" id="unsupported" hidden>이 페이지는 크롬 정책상 확장 프로그램이 동작할 수 없는 페이지예요.</p>
+    <div class="cheat" id="cheat"></div>
+    <button class="btn" id="openOptions" type="button">설정 열기</button>
+  </div>
+  <script src="shared.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

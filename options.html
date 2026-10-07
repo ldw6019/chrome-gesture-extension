@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gesture Control 설정</title>
+  <link rel="stylesheet" href="ui.css">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <img src="icons/icon48.png" alt="" width="36" height="36">
+      <div class="title">
+        <h1>Gesture Control</h1>
+        <p>오른쪽 버튼을 누른 채 그리면 동작합니다</p>
+      </div>
+      <label class="master">
+        <span id="enabledText">사용 중</span>
+        <span class="switch"><input type="checkbox" id="enabled"><span></span></span>
+      </label>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <div class="card-head">
+        <div>
+          <h2>제스처</h2>
+          <p class="sub">각 제스처에 원하는 동작을 지정하세요. 방향을 3번 이상 바꾸면 취소됩니다.</p>
+        </div>
+        <button class="btn ghost" id="resetGestures" type="button">기본값으로</button>
+      </div>
+      <h3 class="group-title">한 방향</h3>
+      <div class="gesture-grid" id="gesturesSingle"></div>
+      <h3 class="group-title">두 방향</h3>
+      <div class="gesture-grid" id="gesturesDouble"></div>
+    </section>
+
+    <section class="card">
+      <h2>모양</h2>
+      <div class="look">
+        <div class="look-controls">
+          <div class="row">
+            <div><strong>궤적 표시</strong><p class="sub">마우스가 지나간 선을 그립니다</p></div>
+            <span class="switch"><input type="checkbox" id="showTrail"><span></span></span>
+          </div>
+          <div class="row">
+            <div><strong>동작 안내 표시</strong><p class="sub">화면 가운데에 실행될 동작을 보여줍니다</p></div>
+            <span class="switch"><input type="checkbox" id="showGuide"><span></span></span>
+          </div>
+          <div class="row">
+            <div><strong>다음 방향 미리보기</strong><p class="sub">첫 방향을 그으면 이어서 갈 수 있는 동작을 옆에 작게 보여줍니다</p></div>
+            <span class="switch"><input type="checkbox" id="showHints"><span></span></span>
+          </div>
+          <div class="row col">
+            <strong>선 색상</strong>
+            <div class="swatches" id="swatches"></div>
+          </div>
+          <div class="row col">
+            <div class="range-head"><strong>선 두께</strong><output id="lineWidthOut"></output></div>
+            <input type="range" id="lineWidth" min="2" max="12" step="1">
+          </div>
+        </div>
+        <div class="preview" aria-hidden="true">
+          <svg viewBox="0 0 240 160">
+            <path id="previewHalo" d="M60 30 C 62 70, 60 100, 64 118 S 120 122, 186 120" fill="none" stroke="rgba(255,255,255,.55)" stroke-linecap="round" stroke-linejoin="round"/>
+            <path id="previewLine" d="M60 30 C 62 70, 60 100, 64 118 S 120 122, 186 120" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="preview-pill"><span class="arrows"><i>↓</i><i>→</i></span><span id="previewLabel">현재 탭 닫기</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>동작 방식</h2>
+      <div class="row">
+        <div><strong>오른쪽 버튼 + 휠로 탭 전환</strong><p class="sub">오른쪽 버튼을 누른 채 휠을 굴리면 이전/다음 탭으로 이동합니다</p></div>
+        <span class="switch"><input type="checkbox" id="wheelTabs"><span></span></span>
+      </div>
+      <div class="row">
+        <div><strong>부드러운 스크롤</strong><p class="sub">맨 위로·맨 아래로 이동할 때 애니메이션을 사용합니다</p></div>
+        <span class="switch"><input type="checkbox" id="smoothScroll"><span></span></span>
+      </div>
+      <div class="row col">
+        <div class="range-head"><strong>인식 거리</strong><output id="sensitivityOut"></output></div>
+        <input type="range" id="sensitivity" min="10" max="60" step="2">
+        <p class="sub">값이 작을수록 짧게 움직여도 방향으로 인식합니다. 오인식이 잦으면 늘려 보세요.</p>
+      </div>
+      <div class="row col">
+        <label for="homeUrl"><strong>홈페이지 주소</strong></label>
+        <input type="url" id="homeUrl" class="text" placeholder="https://www.google.com" spellcheck="false">
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>제스처를 쓰지 않을 사이트</h2>
+      <p class="sub">한 줄에 하나씩 입력하세요. <code>example.com</code>을 넣으면 하위 도메인까지 함께 제외됩니다. 툴바 아이콘을 눌러 현재 사이트를 바로 추가할 수도 있어요.</p>
+      <textarea id="excludedSites" class="text" rows="5" spellcheck="false" placeholder="maps.google.com&#10;figma.com"></textarea>
+    </section>
+
+    <section class="card tips">
+      <h2>알아두면 좋은 점</h2>
+      <ul>
+        <li><b>Shift + 우클릭</b>을 하면 제스처 없이 원래 우클릭 메뉴가 열립니다.</li>
+        <li>크롬 정책상 <b>새 탭 페이지, chrome:// 페이지, 크롬 웹스토어, PDF 뷰어</b>에서는 확장 프로그램이 동작할 수 없습니다.</li>
+        <li><b>시크릿 창</b>에서도 쓰려면 <code>chrome://extensions</code> → 이 확장의 세부정보 → “시크릿 모드에서 허용”을 켜세요.</li>
+        <li>로컬 파일(<code>file://</code>)에서 쓰려면 같은 화면에서 “파일 URL에 대한 액세스 허용”을 켜세요.</li>
+        <li>페이지 안에 삽입된 프레임(유튜브 임베드 영상 등) 위에서 시작한 제스처는 인식되지 않습니다.</li>
+      </ul>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">저장됨</div>
+
+  <script src="shared.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
